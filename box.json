@@ -1,0 +1,22 @@
+{
+    "name":"fw1-quick-example",
+    "version":"0.1.0",
+    "author":"Tony Junkes",
+    "shortDescription":"Playing with Quick inside an FW/1 App",
+    "description":"Playing with Quick inside an FW/1 App",
+    "instructions":"Drop it in, fire up Commandbox, type server start and go!",
+    "engines":[
+        {
+            "type":"lucee",
+            "version":">=5.x.x"
+        }
+    ],
+    "dependencies":{
+        "quick":"git://github.com/coldbox-modules/quick.git",
+        "fw1":"be"
+    },
+    "installPaths":{
+        "quick":"app/subsystems/quick",
+        "fw1":"app/framework"
+    }
+}
