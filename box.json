@@ -17,6 +17,6 @@
     },
     "installPaths":{
         "quick":"app/subsystems/quick",
-        "fw1":"app/framework"
+        "fw1":"app/framework/"
     }
 }

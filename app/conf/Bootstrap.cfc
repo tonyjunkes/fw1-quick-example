@@ -19,14 +19,14 @@ component displayname="FW/1 Life Cycle Bootstrap" extends="framework.one"
 		routes: [
 			{ "/db/populate" = "/database/populate" },
 			{ "/db/clear" = "/database/clear" },
+			{ "/users/:id" = "/users/show/id/:id" },
 			{ "/" = "/main/default" }
 		],
 		subsystems: {
 			// Define quick subsystem dependencies
 			quick.diLocations: ["/models", "/modules"],
 			quick.diConfig: {
-				// cbjavaloader calls some things ColdBox related so ignore
-				// We can handle JAR dependencies the modern way with this.javaSettings
+				// cbjavaloader calls some ColdBox related things so ignore and manually fake below
 				exclude: ["cbjavaloader"],
 				// By convention, alias certain beans with prepended values based on folder
 				singulars: {
@@ -35,14 +35,14 @@ component displayname="FW/1 Life Cycle Bootstrap" extends="framework.one"
 					Grammars: "@qb"
 				},
 				loadListener: function(di1) {
-					// Create WireBox facade instance for quick
-					di1.declare("WireBox").asValue(getDefaultBeanFactory().getBean("WireBoxFacade")).done();
-					// quick
-					di1.declare("QuickCollection@quick").instanceOf("quick.models.QuickCollection").done();
+					// WireBox facade to mask DI/1 as WireBox for quick
+					di1.declare("WireBox").asValue(getDefaultBeanFactory().getBean("WireBoxFacade")).done()
+					// quick collection
+					   .declare("QuickCollection@quick").instanceOf("quick.models.QuickCollection").done()
 					// str
-					di1.declare("Str").instanceOf("quick.modules.str.models.Str").done();
+					   .declare("Str").instanceOf("quick.modules.str.models.Str").done()
 					// qb
-					di1.declare("BaseGrammar").instanceOf("quick.modules.qb.models.Grammars.BaseGrammar").done()
+					   .declare("BaseGrammar").instanceOf("quick.modules.qb.models.Grammars.BaseGrammar").done()
 					   .declare("MySQLGrammar").instanceOf("quick.modules.qb.models.Grammars.MySQLGrammar").done()
 					   .declare("QueryUtils").instanceOf("quick.modules.qb.models.Query.QueryUtils").done()
 					   .declare("QueryBuilder").instanceOf("quick.modules.qb.models.Query.QueryBuilder")
@@ -66,7 +66,7 @@ component displayname="FW/1 Life Cycle Bootstrap" extends="framework.one"
 	};
 
 	public void function setupRequest() {
-		//getBeanFactory().getBean("DataService").create();
+		getBeanFactory().getBean("DataService").create();
 	}
 
 	public string function onMissingView(struct rc) {

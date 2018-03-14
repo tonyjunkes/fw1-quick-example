@@ -13,7 +13,7 @@ component
 		"/qb" = expandPath("../app/subsystems/quick/modules/qb")
 	};
 	this.javaSettings.loadPaths = directoryList( expandPath( "../app" ), true, "path", "lib" );
-	this.datasource = "qb_test";
+	this.datasource = "quick_test";
 	this.datasources[this.datasource] = {
 		class: "org.h2.Driver",
 		connectionString: "jdbc:h2:#expandPath("../app/model/data/" & this.datasource)#;MODE=MySQL"
